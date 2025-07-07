@@ -31,6 +31,7 @@ Este proyecto permite a los responsables de producción determinar la asignació
 * Pruebas unitarias para `DataLoader`, `OptimizationModel` y vistas.
 * Se agregó un Slicer para saber si las soluciones esperadas son enteras o son del tipo decimal.
 * Se realizó un frontend más pulcro para poder tener una vista más sofisticada.
+* Se entrega una vista ejecutiva para el resultado, fomentando la toma de decisiones estratégicas.
   
 ## Requisitos
 
