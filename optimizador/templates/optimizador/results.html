@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resultados de Optimización</title>
+    <style>
+      /* Reset ligero */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background: #f0f2f5;
+        color: #333;
+        line-height: 1.4;
+      }
+      .container {
+        max-width: 1000px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #007bff;
+      }
+      /* Cards */
+      .card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      /* Métrica destacada */
+      .metric {
+        text-align: center;
+      }
+      .metric h2 {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 10px;
+      }
+      .metric p {
+        font-size: 2em;
+        color: #28a745;
+        font-weight: bold;
+      }
+      /* Tabla */
+      .table-card table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+      .table-card th,
+      .table-card td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+      .table-card th {
+        background: #007bff;
+        color: #fff;
+        font-weight: normal;
+      }
+      /* Grid de gráficos */
+      .grid {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .graph-card {
+        flex: 1;
+        min-width: 300px;
+        text-align: center;
+      }
+      .graph-card h2 {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+        color: #555;
+      }
+      .graph-card img {
+        max-width: 100%;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+      /* Gráfico completo */
+      .full-width {
+        width: 100%;
+      }
+      /* Botón de acción */
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 24px;
+        background: #007bff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background 0.2s ease;
+      }
+      .btn:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Resultados de Optimización</h1>
+
+      <!-- Métrica principal -->
+      <div class="card metric">
+        <h2>Ingreso Total Óptimo</h2>
+        <p>${{ total_revenue }}</p>
+      </div>
+
+      <!-- Tabla de cantidades -->
+      <div class="card table-card">
+        <h2>Cantidades e Ingresos por Producto</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Cantidad</th>
+              <th>Ingreso Producto</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in table_data %}
+            <tr>
+              <td>{{ row.product }}</td>
+              <td>{{ row.quantity }}</td>
+              <td>${{ row.income|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Gráficos de uso de máquinas -->
+      <div class="grid">
+        <div class="card graph-card">
+          <h2>Uso de Máquina 1</h2>
+          {% if chart_url_m1 %}
+          <img src="{{ chart_url_m1 }}" alt="Uso Máquina 1" />
+          {% else %}
+          <p>No se pudo generar el gráfico para Máquina 1.</p>
+          {% endif %}
+        </div>
+
+        <div class="card graph-card">
+          <h2>Uso de Máquina 2</h2>
+          {% if chart_url_m2 %}
+          <img src="{{ chart_url_m2 }}" alt="Uso Máquina 2" />
+          {% else %}
+          <p>No se pudo generar el gráfico para Máquina 2.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Gráfico de cantidades por producto -->
+      <div class="card graph-card full-width">
+        <h2>Cantidades Óptimas por Producto (Gráfico)</h2>
+        {% if chart_url_qty %}
+        <img src="{{ chart_url_qty }}" alt="Cantidades por Producto" />
+        {% else %}
+        <p>No se pudo generar el gráfico de cantidades.</p>
+        {% endif %}
+      </div>
+
+      <!-- Botón para reiniciar proceso -->
+      <div class="footer">
+        <a href="{% url 'optimizador_process' %}" class="btn"
+          >Ejecutar otro archivo</a
+        >
+      </div>
+    </div>
+  </body>
+</html>
